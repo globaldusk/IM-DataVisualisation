@@ -2,6 +2,7 @@ class Rain{
   float x = random(width);
   float y = random(-600,-10);
   float ySpeed = random(4,10);
+  float xSpeed = random(0, 2);
   float ranLength = random (1,5);
   float dimensions = random(2,20);
   float curviture = random(20,50);
@@ -9,6 +10,7 @@ class Rain{
   
   void force(){
   y=y+ySpeed;
+  x = x+xSpeed;
   ySpeed = ySpeed + 0.02;
   
   if (y > height){
