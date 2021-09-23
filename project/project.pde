@@ -1,4 +1,5 @@
 //main file
+
 import processing.sound.*;
 
 SoundFile raindroplet;
@@ -6,28 +7,125 @@ int index = 0;
 
 Rain[] r = new Rain[20];
 
+Slider slider = new Slider();
+
+Planet sun;
+Planet moon;
+
 void setup(){
   size(600,600);
+  
+  sun = new Planet(color(249, 215, 28),width/2,height/2-50,25,1);
+  moon = new Planet(color(244, 246, 240),width/2,height/2+50,15,1);
+  
   //table1 = loadTable("raindata.csv", "header");
   raindroplet = new SoundFile(this, "droplet.mp3");
+  
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
   }
-  
-
+  //makes the slider
+  slider.setupSlider();
 }
+
 void draw(){
-  background(255);
+  background(0);
+  
+  sun.display();
+  moon.display();
+  
+  drawSlider();
+    //go through each rain object
+    for(int i=0; i< r.length; i++){
+     
+    r[i].xSpeed = (slider.posx-250)/25;
+    
+    }
+    
   environment();
   buildings();
   road();
   rainDisplay();
+}
 
-    }
-    
+
+class Planet{
+  color c;
+  float x;
+  float y;
+  float size;
+  float speed;
   
+  Planet(color tempC, float tempX, float tempY, float tempSize, float tempSpeed){
+    c = tempC;
+    x = tempX;
+    y = tempY;
+    size = tempSize;
+    speed = tempSpeed;
+  }
+  
+  void display(){
+    fill(c);
+    circle(x,y,size);
+  }
+  
+  void move(){
+    
+  }
+}
 
-  void rainDisplay(){
+void drawSlider() {
+    slider.fundo = slider.posx;
+    //buffer to variably change width of slide bar
+    float leftBuffer = width/10;
+    float rightBuffer = width-(width/10);
+    
+    //draw the slider line
+    line (rightBuffer, slider.posy, leftBuffer, slider.posy);
+    if (dist(mouseX, mouseY, slider.posx, slider.posy) < slider.slider_height) {
+      fill(200);
+      slider.over = true;
+    }
+    else {
+      fill(255);
+      slider.over = false;
+    }
+  
+  //make sure slider cant leave the bar length on left side
+  if (slider.posx < leftBuffer) {
+  slider.posx = leftBuffer;
+  }
+  //make sure slider cant leave the bar length on right side
+  if (slider.posx > rightBuffer) {
+  slider.posx = rightBuffer;
+  }
+  
+    //draw the slider box
+    rect(slider.posx, slider.posy, slider.slider_width, slider.slider_height);
+  }
+
+
+void mousePressed() {
+  //check if slider has been clicked
+  if (slider.over) {
+    slider.locked = true;
+    slider.xoff = mouseX-slider.posx;
+  }
+}
+void mouseDragged() {
+  //check if mouse is dragging slider
+  if (slider.locked) {
+    slider.posx = mouseX-slider.xoff;
+  }
+  
+  
+}
+void mouseReleased() {
+  slider.locked = false;
+}
+
+
+void rainDisplay(){
         for(int i=0; i< r.length; i++){
   r[i].force();
   r[i].show();
@@ -87,6 +185,3 @@ void draw(){
   triangle(170,300,400,140,560,300);
   triangle(250,300,490,100,700,300);
   }
-
-
-  
