@@ -29,7 +29,7 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  background(255);
   
   sun.display();
   moon.display();
@@ -43,7 +43,7 @@ void draw(){
     }
     
   environment();
-  buildings();
+  //buildings();
   road();
   rainDisplay();
 }
@@ -132,7 +132,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    raindroplet.play();
+    //raindroplet.play();
   
   }
   //    public int getData(){
@@ -151,7 +151,7 @@ void rainDisplay(){
   line(0,height/2 +100,width,height/2+100);
   }
   
-  void buildings(){
+  /*void buildings(){
  
   noStroke();
   //rect();
@@ -173,7 +173,7 @@ void rainDisplay(){
   fill(colourBuildings);
   rect (x, height/2 +50, -buildingW, -buildingH); //makes buildings
   }
-  }
+  }*/
   
   void environment(){
     //change colour depending on the time of day?
