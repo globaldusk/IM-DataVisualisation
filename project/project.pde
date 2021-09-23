@@ -1,11 +1,10 @@
 //main file
-
 import processing.sound.*;
 
 SoundFile raindroplet;
 int index = 0;
 
-Rain[] r = new Rain[20];
+Rain[] r = new Rain[100];
 
 Slider slider = new Slider();
 
@@ -37,8 +36,9 @@ void draw(){
   drawSlider();
     //go through each rain object
     for(int i=0; i< r.length; i++){
-     
-    r[i].xSpeed = (slider.posx-250)/25;
+    
+    r[i].xSpeed = (slider.posx - (width/2))/(width/5);
+    
     
     }
     
