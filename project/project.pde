@@ -6,39 +6,33 @@ int index = 0;
 
 Rain[] r = new Rain[20];
 
- float roadvariable = height/2 +50;
-
-
-
-  //Table table1;
-
 void setup(){
   size(600,600);
   //table1 = loadTable("raindata.csv", "header");
-  
   raindroplet = new SoundFile(this, "droplet.mp3");
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
   }
-  fill(0);
+  
 
 }
 void draw(){
   background(255);
   environment();
   buildings();
-  
-  
-  
-    for(int i=0; i< r.length; i++){
-  r[i].force();
-  r[i].show();
-  //topline
-  line(0,height/2 +50,width,height/2+50);
-  line(0,height/2 +100,width,height/2+100);
+  road();
+  rainDisplay();
 
     }
-}
+    
+  
+
+  void rainDisplay(){
+        for(int i=0; i< r.length; i++){
+  r[i].force();
+  r[i].show();
+        }
+  }
   void rainSound(){
     raindroplet.play();
   
@@ -53,6 +47,11 @@ void draw(){
   //}
   //return(0);
   //  }
+  
+  void road(){
+    line(0,height/2 +50,width,height/2+50);
+  line(0,height/2 +100,width,height/2+100);
+  }
   
   void buildings(){
  
