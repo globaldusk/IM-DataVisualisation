@@ -10,13 +10,15 @@ Rain[] r = new Rain[20];
 Slider slider = new Slider();
 
 Planet sun;
+float sunX;
+float sunY;
+
 Planet moon;
+float moonX;
+float moonY;
 
 void setup(){
   size(600,600);
-  
-  sun = new Planet(color(249, 215, 28),width/2,height/2-50,25,1);
-  moon = new Planet(color(244, 246, 240),width/2,height/2+50,15,1);
   
   //table1 = loadTable("raindata.csv", "header");
   raindroplet = new SoundFile(this, "droplet.mp3");
@@ -29,8 +31,12 @@ void setup(){
 }
 
 void draw(){
-  background(255);
   
+  background(255);
+  fill(255);
+  ellipse(width/2, height/2, 800, 500);
+  strokeWeight(5);
+  planetAxis();
   sun.display();
   moon.display();
   
@@ -38,7 +44,7 @@ void draw(){
     //go through each rain object
     for(int i=0; i< r.length; i++){
      
-    r[i].xSpeed = (slider.posx-250)/25;
+     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
     }
     
@@ -46,6 +52,7 @@ void draw(){
   //buildings();
   road();
   rainDisplay();
+  
 }
 
 
@@ -69,10 +76,46 @@ class Planet{
     circle(x,y,size);
   }
   
-  void move(){
-    
-  }
 }
+
+void planetAxis(){
+    int cx = width/2;
+    int cy = height/2;
+
+    int a = 400; // major axis of ellipse
+    int b = 250; // minor axis of ellipse
+
+    float t = millis()/4000.0f; //increase to slow down the movement
+
+    ellipse(cx, cy, 5, 5);
+
+    for (int i = 1 ; i <= 12; i++) {
+        t = t + 100;
+        sunX = (int)(cx - a * cos(t));
+        sunY = (int)(cy - b * sin(t));
+        moonX = (int)(cx + a * cos(t));
+        moonY = (int)(cy + b * sin(t));
+        fill(0);
+
+        if (i == 10) {
+            textSize(15);
+            sun = new Planet(color(249, 215, 28),sunX,sunY,70,1);
+            moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 void drawSlider() {
     slider.fundo = slider.posx;
@@ -124,7 +167,6 @@ void mouseReleased() {
   slider.locked = false;
 }
 
-
 void rainDisplay(){
         for(int i=0; i< r.length; i++){
   r[i].force();
@@ -148,7 +190,7 @@ void rainDisplay(){
   
   void road(){
     line(0,height/2 +50,width,height/2+50);
-  line(0,height/2 +100,width,height/2+100);
+    line(0,height/2 +100,width,height/2+100);
   }
   
   /*void buildings(){
@@ -177,8 +219,7 @@ void rainDisplay(){
   
   void environment(){
     //change colour depending on the time of day?
-    fill(35);
-  noStroke();
+    fill(100);
   triangle(-250,300,50,100,280,300);
   triangle(-50,300,140,130,320,300);
   triangle(50,300,300,80,490,300);
