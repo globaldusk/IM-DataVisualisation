@@ -10,10 +10,13 @@ class Slider{
   float fundo;
   
   void setupSlider() {
+    push();
     posx = width/2;
     posy = height - height/8;
+    
     rectMode(CENTER);
     line (posx, posy, posx+100, posy);
+    pop();
   }
 }
   

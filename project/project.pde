@@ -30,7 +30,7 @@ void setup(){
 
 void draw(){
   background(255);
-  
+  strokeWeight(5);
   sun.display();
   moon.display();
   
@@ -38,12 +38,14 @@ void draw(){
     //go through each rain object
     for(int i=0; i< r.length; i++){
      
-    r[i].xSpeed = (slider.posx-250)/25;
+    r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
     }
     
   environment();
-  //buildings();
+  pushMatrix();
+  buildings();
+  popMatrix();
   road();
   rainDisplay();
 }
@@ -101,7 +103,9 @@ void drawSlider() {
   }
   
     //draw the slider box
+    push();
     rect(slider.posx, slider.posy, slider.slider_width, slider.slider_height);
+    pop();
   }
 
 
@@ -148,7 +152,7 @@ void rainDisplay(){
   
   void road(){
     line(0,height/2 +50,width,height/2+50);
-  line(0,height/2 +100,width,height/2+100);
+    line(0,height/2 +100,width,height/2+100);
   }
   
   /*void buildings(){
@@ -175,10 +179,40 @@ void rainDisplay(){
   }
   }*/
   
+  void buildings(){
+    push();
+    rectMode(CORNERS);
+    fill(255);
+    
+    rect(0,150,50,height/2+50);
+    rect(50,200,100,height/2+50);
+    rect(100,125,125,height/2+50);
+    rect(125,175,190,height/2+50);
+    rect(190,135,230,height/2+50);
+    rect(230,190,250,height/2+50);
+    rect(250,200,265,height/2+50);
+    rect(265,240,290,height/2+50);
+    rect(290,100,325,height/2+50);
+    rect(325,255,365,height/2+50);
+    rect(365,280,380,height/2+50);
+    rect(380,200,450,height/2+50);
+    rect(450,265,480,height/2+50);
+    rect(480,235,505,height/2+50);
+    rect(505,150,535,height/2+50);
+    rect(535,75,width,height/2+50);
+
+
+    //fill(56);
+    //rect(0,175,35,height/2+50);
+    //rect(50,300,50,130);
+    pop();
+  
+  }
+  
   void environment(){
     //change colour depending on the time of day?
     fill(35);
-  noStroke();
+  
   triangle(-250,300,50,100,280,300);
   triangle(-50,300,140,130,320,300);
   triangle(50,300,300,80,490,300);
