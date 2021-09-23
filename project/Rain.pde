@@ -1,3 +1,7 @@
+
+
+
+
 class Rain{
   float x = random(width);
   float y = random(-600,-10);
@@ -9,11 +13,12 @@ class Rain{
   
   void force(){
   y=y+ySpeed;
-  ySpeed = ySpeed + 0.02;
+  ySpeed = ySpeed + 0.01;
   
   if (y > height){
     y = random(-200,-100);
     ySpeed= random(4,10);
+    rainSound();
     
     }
   }
@@ -24,5 +29,5 @@ class Rain{
     strokeWeight(perspective);
     line(x,y,x,  y+ranLength);
   }
-  
-}  
+
+  }
