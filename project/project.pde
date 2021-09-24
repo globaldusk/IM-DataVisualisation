@@ -30,6 +30,8 @@ void setup(){
 
 void draw(){
   background(255);
+  println(mouseX,mouseY);
+  
   strokeWeight(5);
   sun.display();
   moon.display();
@@ -211,11 +213,60 @@ void rainDisplay(){
   
   void environment(){
     //change colour depending on the time of day?
-    fill(35);
+   //change the fill parameter depending on the time of day
+   //implement different triangles, depending on time of day
+   //shadow triangles and snow triangles
   
+  
+  fill(35);
   triangle(-250,300,50,100,280,300);
+  push();
+  noStroke();
+  fill(255);
+  triangle(50,100,111,160,93,172);
+  pop();
+  
+  
   triangle(-50,300,140,130,320,300);
+  push();
+  noStroke();
+  fill(255);
+  triangle(142,133,190,180,168,180);
+  pop();
+  
+  
   triangle(50,300,300,80,490,300);
+    push();
+  noStroke();
+  fill(255);
+  triangle(302,83,371,168,354,180);
+  pop();
+  
+  
   triangle(170,300,400,140,560,300);
+    push();
+  noStroke();
+  fill(255);
+  triangle(401,144,420,165,410,174);
+  pop();
+  
+  
   triangle(250,300,490,100,700,300);
+   push();
+  noStroke();
+  fill(255);
+  triangle(491,103,543,160,528,169);
+  pop();
+  
+  
+  
+  push();
+  //strokeWeight(1);
+  noStroke();
+  //triangle(50,100,26,130,13,137);
+  //triangle(50,100,75,132,63,124);
+  //triangle(50,100,54,129,50,141);
+  //triangle(50,100,44,129,33,143);
+  
+  pop();
   }
