@@ -32,9 +32,10 @@ void setup(){
 
 void draw(){
   
-  background(255);
+  background(moonX, moonY-200, sunY);
+  print(moonY+" - "+sunY);
   fill(255);
-  ellipse(width/2, height/2, 800, 500);
+  //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
   planetAxis();
   sun.display();
