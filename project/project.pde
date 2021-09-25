@@ -18,7 +18,7 @@ void setup(){
   moon = new Planet(color(244, 246, 240),width/2,height/2+50,15,1);
   
   //table1 = loadTable("raindata.csv", "header");
-  raindroplet = new SoundFile(this, "droplet.mp3");
+  raindroplet = new SoundFile(this, "droplet2.mp3");
   
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
@@ -43,7 +43,7 @@ void draw(){
     }
     
   environment();
-  //buildings();
+  buildings();
   road();
   rainDisplay();
 }
@@ -132,7 +132,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    //raindroplet.play();
+    raindroplet.play();
   
   }
   //    public int getData(){
@@ -151,29 +151,36 @@ void rainDisplay(){
   line(0,height/2 +100,width,height/2+100);
   }
   
-  /*void buildings(){
- 
-  noStroke();
-  //rect();
-      fill(50, 65, 82);
-      //pushMatrix();
-  //translate(height/2,width/2);
-  //rect(-50,-50,30,100);
-  //rect(-150,-60,30,110);
-  //rect(-250,-80,60,130);
-  //rect(-300,-130,60,180);
+  void buildings(){
+    push();
+    rectMode(CORNERS);
+    fill(255);
+    
+    rect(0,150,50,height/2+50);
+    rect(50,200,100,height/2+50);
+    rect(100,125,125,height/2+50);
+    rect(125,175,190,height/2+50);
+    rect(190,135,230,height/2+50);
+    rect(230,190,250,height/2+50);
+    rect(250,200,265,height/2+50);
+    rect(265,240,290,height/2+50);
+    rect(290,100,325,height/2+50);
+    rect(325,255,365,height/2+50);
+    rect(365,280,380,height/2+50);
+    rect(380,200,450,height/2+50);
+    rect(450,265,480,height/2+50);
+    rect(480,235,505,height/2+50);
+    rect(505,150,535,height/2+50);
+    rect(535,75,width,height/2+50);
 
-  //popMatrix();
-  
-  for (int x=0; x <= width; x+= 30) {
-  
-  float buildingH = random(height*1/7, height*3.5/7); //randomizes building height
-  float buildingW = random(width*1/30, width*1/12); //randomizes building width
-  color colourBuildings = color(320, 81, 15); //color of buildings
-  fill(colourBuildings);
-  rect (x, height/2 +50, -buildingW, -buildingH); //makes buildings
+ 
+
+
+    //fill(56);
+    //rect(0,175,35,height/2+50);
+    //rect(50,300,50,130);
+    pop();
   }
-  }*/
   
   void environment(){
     //change colour depending on the time of day?

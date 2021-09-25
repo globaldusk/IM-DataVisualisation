@@ -9,7 +9,7 @@ class Rain{
   
 
   float xSpeed;
-  
+  float randomRainNum;
   void force(){
     y=y+ySpeed;
     x = x+xSpeed;
@@ -19,8 +19,16 @@ class Rain{
     if (y > height){
       y = random(-200,-100);
       ySpeed= random(4,10);
-  
-      rainSound();
+      
+      
+      randomRainNum = random(0, 5);
+      
+      if ((int)randomRainNum == 1){
+        rainSound();
+        
+      }
+      
+      
       
     }
     if(x < (width/2 - width)){
