@@ -37,6 +37,7 @@ void draw(){
     //go through each rain object
     for(int i=0; i< r.length; i++){
     
+      //changes rain speed based on slider pos
     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
     
@@ -129,6 +130,8 @@ void rainDisplay(){
         for(int i=0; i< r.length; i++){
   r[i].force();
   r[i].show();
+  //reset the stroke to black after making the rain color
+  stroke(0);
         }
   }
   void rainSound(){

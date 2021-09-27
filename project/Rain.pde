@@ -6,6 +6,7 @@ class Rain{
   float dimensions = random(2,20);
   float curviture = random(20,50);
   float xSize = random(10,20);
+  float rainColor = random(256);
   
 
   float xSpeed;
@@ -41,7 +42,8 @@ class Rain{
   
   void show(){
     float perspective = map(dimensions, 0 ,20, 1, 3);
-    stroke(0);
+    stroke(0, 0, rainColor);
+    
     strokeWeight(perspective);
     line(x,y,x,  y+ranLength);
   }
