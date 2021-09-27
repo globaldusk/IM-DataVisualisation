@@ -1,6 +1,13 @@
 //main file
 
 import processing.sound.*;
+int[] xs = new int[576];
+int[] ys = new int[576];
+int xindex;
+int yindex;
+
+int setter = 0;
+int limit = 0;
 
 SoundFile raindroplet;
 int index = 0;
@@ -8,6 +15,9 @@ int index = 0;
 Rain[] r = new Rain[20];
 
 Slider slider = new Slider();
+
+Table sunlight;
+int sunIndex = 0;
 
 Planet sun;
 float sunX;
@@ -17,8 +27,11 @@ Planet moon;
 float moonX;
 float moonY;
 
+int sample;
+
 void setup(){
   size(600,600);
+  sunlight = loadTable("SolarVoltage.csv", "csv");
   
   //table1 = loadTable("raindata.csv", "header");
   raindroplet = new SoundFile(this, "droplet.mp3");
@@ -31,15 +44,33 @@ void setup(){
 }
 
 void draw(){
-  
-  background(moonX, moonY-200, sunY);
-  print(moonY+" - "+sunY);
+  sunIndex = int(slider.posx);
+  sample = sunlight.getInt(sunIndex, 1)*12;
+
+  background(moonX, moonY-200, sunY);//sky colours
+  //print(sample+" / ");
   fill(255);
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
-  planetAxis();
-  sun.display();
-  moon.display();
+  if (limit < 576){
+    planetAxis();
+    limit++;
+  }
+  else{
+    
+    xindex = int(slider.posx);
+    yindex = int(slider.posx);
+    for(int i = 0; i < xs.length; i++){
+      print (xs[i]);
+      //print (ys[i]+"       ");
+    }
+    print("   break    ");
+    
+    sun = new Planet(color(249, 215, 28),xs[xindex],ys[yindex],70,1);
+    moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
+    sun.display();
+    moon.display();
+  }
   
   drawSlider();
     //go through each rain object
@@ -84,7 +115,7 @@ void planetAxis(){
     int cy = height/2;
 
     int a = 400; // major axis of ellipse
-    int b = 250; // minor axis of ellipse
+    int b = 250;// sample; // minor axis of ellipse
 
     float t = millis()/4000.0f; //increase to slow down the movement
 
@@ -99,9 +130,13 @@ void planetAxis(){
         fill(0);
 
         if (i == 10) {
-            textSize(15);
-            sun = new Planet(color(249, 215, 28),sunX,sunY,70,1);
-            moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
+            
+            xs[setter] = int(sunX);
+            ys[setter] = int(sunY);
+            print(int(sunX)+"        ");
+            setter++;
+            append(ys, int(sunY));
+            
         }
     }
 }
