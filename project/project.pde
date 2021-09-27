@@ -7,7 +7,8 @@ int index = 0;
 Rain[] r = new Rain[100];
 
 Slider slider = new Slider();
-float rainSliderValue;
+float windSliderValue;
+float sunSliderValue;
 
 
 Planet sun;
@@ -36,18 +37,19 @@ void draw(){
   moon.display();
   
   drawSlider();
-  rainSliderValue = (slider.posx - (width/2))/(width/25);
+  windSliderValue = (slider.posx - (width/2))/(width/25);
     //go through each rain object
   for(int i=0; i< r.length; i++){
     
       //changes rain speed based on slider pos
-    r[i].xSpeed = rainSliderValue;
+    r[i].xSpeed = windSliderValue;
     
     
     
     }
-  System.out.println((slider.posx-60)*1.19791667);
-    
+  
+  sunSliderValue = (slider.posx-60)*1.19791667;
+  
   environment();
   buildings();
   road();
