@@ -204,8 +204,28 @@ void rainDisplay(){
     rect(535,75,width,height/2+50);
 
 
-    //fill(56);
-    //rect(0,175,35,height/2+50);
+    fill(56);
+    rect(0,175,35,height/2+50);
+    rect(40,200,55,height/2+50); 
+    rect(55,160,75,height/2+50);
+    rect(85,150,100,height/2+50);
+    rect(100,195,140,height/2+50);
+    rect(140,160,160,height/2+50);
+    rect(160,175,190,height/2+50);
+    rect(190,190,215,height/2+50);
+    rect(215,150,240,height/2+50);
+    rect(240,220,275,height/2+50);
+    rect(300,140,315,height/2+50);
+    rect(315,215,340,height/2+50);
+    rect(340,280,360,height/2+50);
+    rect(360,300,400,height/2+50);
+    rect(400,160,440,height/2+50);
+    rect(440,220,460,height/2+50);
+    rect(460,280,480,height/2+50);
+    rect(490,250,510,height/2+50);
+    rect(510,170,540,height/2+50);
+    rect(540,90,570,height/2+50);
+    rect(570,100,width,height/2+50);
     //rect(50,300,50,130);
     pop();
   
@@ -270,3 +290,7 @@ void rainDisplay(){
   
   pop();
   }
+  
+    void mountainSnow(){
+      
+    }

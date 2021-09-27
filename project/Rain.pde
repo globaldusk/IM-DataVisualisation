@@ -32,9 +32,13 @@ void force(){
   
   void show(){
     float perspective = map(dimensions, 0 ,20, 1, 3);
+    push();
+    colorMode(HSB);
+    //fill(random());
     stroke(0);
     strokeWeight(perspective);
     line(x,y,x,  y+ranLength);
+    pop();
   }
   
 }
