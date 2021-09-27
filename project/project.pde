@@ -15,6 +15,7 @@ int index = 0;
 Rain[] r = new Rain[20];
 
 Slider slider = new Slider();
+float sliderValue = (slider.posx - (width/2))/(width/5);
 
 Table sunlight;
 int sunIndex = 0;
