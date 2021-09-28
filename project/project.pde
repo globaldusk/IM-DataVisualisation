@@ -1,19 +1,20 @@
 //main file
 
-import processing.sound.*;
+//import processing.sound.*;
 int delayer = 0;
 int setter = 0;
 int limit = 0;
 int number = 4;
 int rotation = 576*number;
 
-int[] xs = new int[rotation];
-int[] ys = new int[rotation];
-int xindex;
-int yindex;
+int[] sunxs = new int[rotation];
+int[] sunys = new int[rotation];
+int[] moonxs = new int[rotation];
+int[] moonys = new int[rotation];
+int index;
 
-SoundFile raindroplet;
-int index = 0;
+//SoundFile raindroplet;
+//int index = 0;
 
 Rain[] r = new Rain[20];
 
@@ -34,12 +35,15 @@ float moonY;
 
 int sample;
 
+PImage img;
+
 void setup(){
   size(600,600);
+  img = loadImage("cloud.png");
   sunlight = loadTable("SolarVoltage.csv", "csv");
   
   //table1 = loadTable("raindata.csv", "header");
-  raindroplet = new SoundFile(this, "droplet.mp3");
+  //raindroplet = new SoundFile(this, "droplet.mp3");
   
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
@@ -48,14 +52,22 @@ void setup(){
   slider.setupSlider();
 }
 
+int darkness;
+
 void draw(){
-  background(moonX, moonY-200, ys[yindex]);//sky colours
+  sunIndex = int(sunSlider);
+  sample = sunlight.getInt(sunIndex, 1)*4;
+  darkness = height-sunys[index];
+  darkness = darkness/2;
+  darkness -= 200;
+  darkness += sample*2;
+  background(darkness, darkness, moonY);//sky colours
   //print(sample+" / ");
   fill(255);
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
   
-  drawSlider();
+  
     //go through each rain object
     for(int i=0; i< r.length; i++){
      
@@ -65,34 +77,43 @@ void draw(){
   sliderValue = (slider.posx - (width/2))/(width/5);
   sunSlider = (slider.posx-60)*1.19791667;
   
-  sunIndex = int(sunSlider);
-  sample = sunlight.getInt(sunIndex, 1)*12;
-
-  
   if (limit < rotation){
+    
     planetAxis();
     limit++;
   }
   else{
-    xindex = int(sunSlider);
-    yindex = int(sunSlider);
-    for(int i = 0; i < xs.length; i++){
+    index = int(sunSlider);
+    for(int i = 0; i < sunxs.length; i++){
       //print (xs[i]);
       //print (ys[i]+"       ");
     }
-    print(sunSlider+"       ");
+    print(darkness+"       ");
     
-    sun = new Planet(color(249, 215, 28),xs[xindex],ys[yindex],70,1);
-    moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
+    sun = new Planet(color(249, 215, 28),sunxs[index],sunys[index],sample,1);
+    moon = new Planet(color(244, 246, 240),moonxs[index],moonys[index],25,1);
     sun.display();
     moon.display();
+  }
+  
+  if(sunys[index] <250){
+    image(img, 0, -50);
+  img.resize(600, 200);
+  tint(255, (21-sample)*12.75);
   }
   
   environment();
   //buildings();
   road();
   rainDisplay();
-  
+  drawSlider();
+  if (limit < rotation){
+    fill(0);
+    rect(0,0, width*2, height*2);
+    fill(255);
+    textSize(100);
+    text("Loading...",width/8, height/2);
+  }
 }
 
 
@@ -139,11 +160,14 @@ void planetAxis(){
 
         if (i == 10) {
             if (delayer == number-1){
-              xs[setter] = int(sunX);
-              ys[setter] = int(sunY);
+              sunxs[setter] = int(sunX);
+              sunys[setter] = int(sunY);
+              moonxs[setter] = int(moonX);
+              moonys[setter] = int(moonY);
               print(int(sunX)+"        ");
               setter++;
-              append(ys, int(sunY));
+              append(sunys, int(sunY));
+              append(moonys, int(moonY));
               delayer = 0;
             }
             else{
@@ -264,7 +288,6 @@ void rainDisplay(){
   rect (x, height/2 +50, -buildingW, -buildingH); //makes buildings
   }
   }*/
-  
   void environment(){
     //change colour depending on the time of day?
     fill(100);
