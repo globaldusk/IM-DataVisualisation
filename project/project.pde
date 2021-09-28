@@ -1,13 +1,16 @@
 //main file
 
 import processing.sound.*;
-int[] xs = new int[576];
-int[] ys = new int[576];
-int xindex;
-int yindex;
-
+int delayer = 0;
 int setter = 0;
 int limit = 0;
+int number = 4;
+int rotation = 576*number;
+
+int[] xs = new int[rotation];
+int[] ys = new int[rotation];
+int xindex;
+int yindex;
 
 SoundFile raindroplet;
 int index = 0;
@@ -15,7 +18,8 @@ int index = 0;
 Rain[] r = new Rain[20];
 
 Slider slider = new Slider();
-float sliderValue = (slider.posx - (width/2))/(width/5);
+float sliderValue;
+float sunSlider;
 
 Table sunlight;
 int sunIndex = 0;
@@ -45,33 +49,11 @@ void setup(){
 }
 
 void draw(){
-  sunIndex = int(slider.posx);
-  sample = sunlight.getInt(sunIndex, 1)*12;
-
-  background(moonX, moonY-200, sunY);//sky colours
+  background(moonX, moonY-200, ys[yindex]);//sky colours
   //print(sample+" / ");
   fill(255);
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
-  if (limit < 576){
-    planetAxis();
-    limit++;
-  }
-  else{
-    
-    xindex = int(slider.posx);
-    yindex = int(slider.posx);
-    for(int i = 0; i < xs.length; i++){
-      print (xs[i]);
-      //print (ys[i]+"       ");
-    }
-    print("   break    ");
-    
-    sun = new Planet(color(249, 215, 28),xs[xindex],ys[yindex],70,1);
-    moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
-    sun.display();
-    moon.display();
-  }
   
   drawSlider();
     //go through each rain object
@@ -80,7 +62,32 @@ void draw(){
      r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
     }
+  sliderValue = (slider.posx - (width/2))/(width/5);
+  sunSlider = (slider.posx-60)*1.19791667;
+  
+  sunIndex = int(sunSlider);
+  sample = sunlight.getInt(sunIndex, 1)*12;
+
+  
+  if (limit < rotation){
+    planetAxis();
+    limit++;
+  }
+  else{
+    xindex = int(sunSlider);
+    yindex = int(sunSlider);
+    for(int i = 0; i < xs.length; i++){
+      //print (xs[i]);
+      //print (ys[i]+"       ");
+    }
+    print(sunSlider+"       ");
     
+    sun = new Planet(color(249, 215, 28),xs[xindex],ys[yindex],70,1);
+    moon = new Planet(color(244, 246, 240),moonX,moonY,25,1);
+    sun.display();
+    moon.display();
+  }
+  
   environment();
   //buildings();
   road();
@@ -131,13 +138,17 @@ void planetAxis(){
         fill(0);
 
         if (i == 10) {
-            
-            xs[setter] = int(sunX);
-            ys[setter] = int(sunY);
-            print(int(sunX)+"        ");
-            setter++;
-            append(ys, int(sunY));
-            
+            if (delayer == number-1){
+              xs[setter] = int(sunX);
+              ys[setter] = int(sunY);
+              print(int(sunX)+"        ");
+              setter++;
+              append(ys, int(sunY));
+              delayer = 0;
+            }
+            else{
+              delayer++;
+            }
         }
     }
 }
