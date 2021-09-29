@@ -10,6 +10,8 @@ Slider slider = new Slider();
 float windSliderValue;
 float sunSliderValue;
 
+Table rainTable;
+float[] rainArray;
 
 Planet sun;
 Planet moon;
@@ -20,15 +22,39 @@ void setup(){
   sun = new Planet(color(249, 215, 28),width/2,height/2-50,25,1);
   moon = new Planet(color(244, 246, 240),width/2,height/2+50,15,1);
   
-  //table1 = loadTable("raindata.csv", "header");
+ 
   raindroplet = new SoundFile(this, "droplet2.mp3");
-  
+  //creates rain
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
   }
+  
+  
   //makes the slider
   slider.setupSlider();
+  rainTable = loadTable("raindata.csv", "header");
+  
+  rainArray = rainTableInterpretation(rainTable);
+  
+  
+  
 }
+
+//function that returns the array for rain values into a float array
+float[] rainTableInterpretation(Table table){
+  float[] rainValueArr = new float[table.getRowCount()+1];
+  int count = 0;
+  for(TableRow row: table.rows()){
+    rainValueArr[count] = row.getFloat(1);
+    
+    count++;
+  
+  }
+    
+  return rainValueArr;
+
+}
+
 
 void draw(){
   background(255);
@@ -37,13 +63,15 @@ void draw(){
   moon.display();
   
   drawSlider();
-  windSliderValue = (slider.posx - (width/2))/(width/25);
+  windSliderValue = (slider.posx-width/10)* 5.39375;
+  
+  
+  println(windSliderValue);
     //go through each rain object
   for(int i=0; i< r.length; i++){
     
       //changes rain speed based on slider pos
-    r[i].xSpeed = windSliderValue;
-    
+    r[i].xSpeed = (int)(rainArray[(int)windSliderValue]);
     
     
     }
@@ -142,7 +170,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    raindroplet.play();
+    //raindroplet.play();
   
   }
   //    public int getData(){
