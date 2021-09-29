@@ -1,4 +1,9 @@
 //main file
+import beads.*;
+import java.util.Arrays; 
+
+AudioContext ac;
+
 
 import processing.sound.*;
 
@@ -15,6 +20,8 @@ Planet moon;
 
 void setup(){
   size(600,600);
+  ac = AudioContext.getDefaultContext();
+  tonePlayer1();
   
   sun = new Planet(color(249, 215, 28),width/2,height/2-50,25,1);
   moon = new Planet(color(244, 246, 240),width/2,height/2+50,15,1);
@@ -36,8 +43,9 @@ void draw(){
   strokeWeight(5);
   sun.display();
   moon.display();
-  
+  water();
   drawSlider();
+  //
   sliderValue = (slider.posx - (width/2))/(width/5);
     //go through each rain object
     for(int i=0; i< r.length; i++){
@@ -47,11 +55,14 @@ void draw(){
     }
   
   environment();
-  pushMatrix();
+
   buildings();
-  popMatrix();
+
   road();
   rainDisplay();
+  
+  river();
+  
 }
 
 
@@ -140,7 +151,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    //raindroplet.play();
+    raindroplet.play();
   
   }
   //    public int getData(){
@@ -155,8 +166,23 @@ void rainDisplay(){
   //  }
   
   void road(){
-    line(0,height/2 +50,width,height/2+50);
-    line(0,height/2 +100,width,height/2+100);
+    //line(0,height/2 +50,width,height/2+50);
+    //line(0,height/2 +100,width,height/2+100);
+    push();
+    rectMode(CORNERS);
+    fill(255);
+    rect(-10,height/2 +50,width+10,height/2+100);
+    float w = 45;
+    float h = 380;
+    strokeWeight(10);
+    fill(0);
+    quad(270,370,330,370,250,380,350,380);
+    
+    //float y= 370;
+    //for(float i = 0; i < width; i = i + w*2){
+    //  rect(i, y , w, h);
+    //}
+    pop();
   }
   
   /*void buildings(){
@@ -292,7 +318,95 @@ void rainDisplay(){
   
   pop();
   }
-  
-    void mountainSnow(){
+    void water(){
       
+    push();
+    rectMode(CORNERS);
+
+    fill(44,83,232);
+    rect(-10,400,610,610);
+    
+    pop();
     }
+    
+    void river(){
+      push();
+      //frameRate(5);
+       float w = random(0,100); //width of rect
+       float h = 10;//height of rect
+       float x = 0;//how far across the page
+       float y;//how low or high on the page
+       
+       for( float i = x; i<=height; i = i + w*2 ){ //draws a line of rect, changes x position
+        noStroke();    //takes away stroke
+          y = random(400,600);//sets y height randomly within 150-250 when mouse clicked
+          fill(random(100,200), random(50,150), random(200,300));//sets random shade of purple when mouse clicked
+        
+       rect( i,y, w,h );//draws rect  
+      }
+      pop();
+    }
+    
+
+void tonePlayer(int x, int y,int z){
+   Clock clock = new Clock(x+y+z);
+   clock.addMessageListener(
+    //this is the on-the-fly bead
+    new Bead() {
+      //this is the method that we override to make the Bead do something
+      int pitch;
+       public void messageReceived(Bead message) {
+          Clock c = (Clock)message;
+          if(c.isBeat()) {
+            //choose some nice frequencies
+            if(random(1) < 0.5) return;
+            pitch = Pitch.forceToScale((int)random(12), Pitch.dorian);
+            float freq = Pitch.mtof(pitch + (int)random(5) * 10 + 25);
+            WavePlayer wp = new WavePlayer(freq, Buffer.SINE);
+            Gain g = new Gain(1, new Envelope(0));
+            g.addInput(wp);
+            ac.out.addInput(g);
+            ((Envelope)g.getGainEnvelope()).addSegment(0.1, random(200));
+            ((Envelope)g.getGainEnvelope()).addSegment(0, random(7000), new KillTrigger(g));
+         
+  
+   
+         }
+       }
+       }
+     
+   );
+   ac.out.addDependent(clock);
+   ac.start();
+}
+
+void tonePlayer1(){
+   Clock clock = new Clock(700);
+   clock.addMessageListener(
+    //this is the on-the-fly bead
+    new Bead() {
+      //this is the method that we override to make the Bead do something
+      int pitch;
+       public void messageReceived(Bead message) {
+          Clock c = (Clock)message;
+          if(c.isBeat()) {
+            //choose some nice frequencies
+            if(random(1) < 0.5) return;
+            pitch = Pitch.forceToScale((int)random(12), Pitch.dorian);
+            float freq = Pitch.mtof(pitch + (int)random(5) * 12 + 32);
+            WavePlayer wp = new WavePlayer(freq, Buffer.SINE);
+            Gain g = new Gain(1, new Envelope(0));
+            g.addInput(wp);
+            ac.out.addInput(g);
+            ((Envelope)g.getGainEnvelope()).addSegment(0.1, random(200));
+            ((Envelope)g.getGainEnvelope()).addSegment(0, random(7000), new KillTrigger(g));
+         }
+  
+   
+         }
+       }
+     
+   );
+   ac.out.addDependent(clock);
+   ac.start();
+}
