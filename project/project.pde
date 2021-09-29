@@ -67,7 +67,7 @@ void draw(){
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
   
-  
+  drawSlider();
     //go through each rain object
     for(int i=0; i< r.length; i++){
      
@@ -106,7 +106,7 @@ void draw(){
   //buildings();
   road();
   rainDisplay();
-  drawSlider();
+  
   if (limit < rotation){
     fill(0);
     rect(0,0, width*2, height*2);
