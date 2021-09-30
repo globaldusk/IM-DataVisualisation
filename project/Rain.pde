@@ -1,5 +1,5 @@
 class Rain{
-  float x = random(width);
+  float x = random((width/2 - width), (width/2 + width));
   float y = random(-600,-10);
   float ySpeed = random(4,10);
   float ranLength = random (1,5);
@@ -10,26 +10,35 @@ class Rain{
 
   float xSpeed;
   
-  void force(){
-  y=y+ySpeed;
-  x = x+xSpeed;
-  ySpeed = ySpeed + 0.02;
-
+void force(){
+    y=y+ySpeed;
+    x = x+xSpeed;
+    ySpeed = ySpeed + 0.02;
   
-  if (y > height){
-    y = random(-200,-100);
-    ySpeed= random(4,10);
-
-    rainSound();
-    
+    if (y > height){
+      y = random(-200,-100);
+      ySpeed= random(4,10);
+  
+      rainSound();
+      
+    }
+    if(x < (width/2 - width)){
+      x = random(width/2 + width);
+    }
+    else if(x > (width/2 + width)){
+      x = random(width/2 - width);
     }
   }
   
   void show(){
     float perspective = map(dimensions, 0 ,20, 1, 3);
+    push();
+    colorMode(HSB);
+    //fill(random());
     stroke(0);
     strokeWeight(perspective);
     line(x,y,x,  y+ranLength);
+    pop();
   }
   
 }
