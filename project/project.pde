@@ -17,6 +17,7 @@ int setter = 0;
 int limit = 0;
 int number = 4;
 int rotation = 576*number;
+boolean flip = false;
 
 int[] sunxs = new int[rotation];
 int[] sunys = new int[rotation];
@@ -59,7 +60,7 @@ void setup(){
   sunlight = loadTable("SolarVoltage.csv", "csv");
 
   ac = AudioContext.getDefaultContext();
-  tonePlayer1();
+  //tonePlayer1();
   
   //table1 = loadTable("raindata.csv", "header");
   raindroplet = new SoundFile(this, "droplet2.mp3");
@@ -175,6 +176,10 @@ void draw(){
     text("Loading...",width/8, height/2);
   }
   else{
+    if(!flip){
+      tonePlayer();
+      flip = true;
+    }
     rainDisplay();
   }
 }
@@ -498,8 +503,8 @@ void rainDisplay(){
     }
     
 
-void tonePlayer(int x, int y,int z){
-   Clock clock = new Clock(x+y+z);
+void tonePlayer(){
+   Clock clock = new Clock(darkness);
    clock.addMessageListener(
     //this is the on-the-fly bead
     new Bead() {
@@ -511,7 +516,7 @@ void tonePlayer(int x, int y,int z){
             //choose some nice frequencies
             if(random(1) < 0.5) return;
             pitch = Pitch.forceToScale((int)random(12), Pitch.dorian);
-            float freq = Pitch.mtof(pitch + (int)random(5) * 10 + 25);
+            float freq = Pitch.mtof(pitch + (int)random(5) * 10 + darkness/10);
             WavePlayer wp = new WavePlayer(freq, Buffer.SINE);
             Gain g = new Gain(1, new Envelope(0));
             g.addInput(wp);
@@ -523,37 +528,6 @@ void tonePlayer(int x, int y,int z){
    
          }
        }
-       }
-     
-   );
-   ac.out.addDependent(clock);
-   ac.start();
-}
-
-void tonePlayer1(){
-   Clock clock = new Clock(700);
-   clock.addMessageListener(
-    //this is the on-the-fly bead
-    new Bead() {
-      //this is the method that we override to make the Bead do something
-      int pitch;
-       public void messageReceived(Bead message) {
-          Clock c = (Clock)message;
-          if(c.isBeat()) {
-            //choose some nice frequencies
-            if(random(1) < 0.5) return;
-            pitch = Pitch.forceToScale((int)random(12), Pitch.dorian);
-            float freq = Pitch.mtof(pitch + (int)random(5) * 12 + 32);
-            WavePlayer wp = new WavePlayer(freq, Buffer.SINE);
-            Gain g = new Gain(1, new Envelope(0));
-            g.addInput(wp);
-            ac.out.addInput(g);
-            ((Envelope)g.getGainEnvelope()).addSegment(0.1, random(200));
-            ((Envelope)g.getGainEnvelope()).addSegment(0, random(7000), new KillTrigger(g));
-         }
-  
-   
-         }
        }
      
    );
