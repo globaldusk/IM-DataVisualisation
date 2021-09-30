@@ -79,7 +79,7 @@ void draw(){
   fill(255);
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
-  water();
+
   drawSlider();
     //go through each rain object
     for(int i=0; i< r.length; i++){
@@ -108,7 +108,14 @@ void draw(){
     sun.display();
     moon.display();
   }
-  
+  water();
+  drawSlider();
+    //go through each rain object
+    for(int i=0; i< r.length; i++){
+     
+     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
+    
+    }
   if(sunys[index] <250){
     image(img, 0, -50);
   img.resize(600, 200);
@@ -120,7 +127,7 @@ void draw(){
   buildings();
   road();
   rainDisplay();
-  if (delayer2 == 20){
+  if (delayer2 == 50){
     river();
     delayer2 = 0;
   }
@@ -449,6 +456,7 @@ void rainDisplay(){
         
        rect( i,y, w,h );//draws rect  
       }
+      
       pop();
     }
     
