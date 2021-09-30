@@ -147,12 +147,7 @@ void draw(){
     
     }
   drawSlider();
-    //go through each rain object
-    for(int i=0; i< r.length; i++){
-     
-     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
-    
-    }
+
   if(sunys[index] <250){
     image(img, 0, -50);
   img.resize(600, 200);
@@ -163,7 +158,7 @@ void draw(){
   environment();
   buildings();
   road();
-  rainDisplay();
+  
   if (delayer2 == 50){
     river();
     delayer2 = 0;
@@ -178,6 +173,9 @@ void draw(){
     fill(255);
     textSize(100);
     text("Loading...",width/8, height/2);
+  }
+  else{
+    rainDisplay();
   }
 }
 class Planet{
@@ -302,7 +300,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    //raindroplet.play();
+    raindroplet.play();
   
   }
   //    public int getData(){
