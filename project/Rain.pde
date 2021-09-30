@@ -6,20 +6,30 @@ class Rain{
   float dimensions = random(2,20);
   float curviture = random(20,50);
   float xSize = random(10,20);
+  float rainColor = random(256);
   
 
   float xSpeed;
-  
-void force(){
+  float randomRainNum;
+  void force(){
     y=y+ySpeed;
     x = x+xSpeed;
     ySpeed = ySpeed + 0.02;
+
   
     if (y > height){
       y = random(-200,-100);
       ySpeed= random(4,10);
-  
-      rainSound();
+      
+      
+      randomRainNum = random(0, 5);
+      
+      if ((int)randomRainNum == 1){
+        rainSound();
+        
+      }
+      
+      
       
     }
     if(x < (width/2 - width)){
@@ -35,7 +45,7 @@ void force(){
     push();
     colorMode(HSB);
     //fill(random());
-    stroke(0);
+    stroke(0, 0, rainColor);
     strokeWeight(perspective);
     line(x,y,x,  y+ranLength);
     pop();

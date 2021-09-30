@@ -45,6 +45,12 @@ float moonY;
 
 int sample;
 
+float windSliderValue;
+float sunSliderValue;
+
+Table rainTable;
+float[] rainDataArray;
+
 PImage img;
 
 void setup(){
@@ -56,13 +62,33 @@ void setup(){
   tonePlayer1();
   
   //table1 = loadTable("raindata.csv", "header");
-  raindroplet = new SoundFile(this, "droplet.mp3");
-  
+  raindroplet = new SoundFile(this, "droplet2.mp3");
+
   for(int i=0; i< r.length; i++){
     r[i] = new Rain();
   }
+  
+  
   //makes the slider
   slider.setupSlider();
+
+  rainTable = loadTable("raindata.csv", "header");
+  
+  rainDataArray = rainTableInterpretation(rainTable);
+}
+
+float[] rainTableInterpretation(Table table){
+  float[] rainValueArr = new float[table.getRowCount()+1];
+  int count = 0;
+  for(TableRow row: table.rows()){
+    rainValueArr[count] = row.getFloat(1);
+    
+    count++;
+  
+  }
+    
+  return rainValueArr;
+
 }
 
 int darkness;
@@ -109,6 +135,17 @@ void draw(){
     moon.display();
   }
   water();
+  windSliderValue = (slider.posx-width/10)* 5.39375;
+ 
+   
+    //go through each rain object
+  for(int i=0; i< r.length; i++){
+    
+    //changes rain speed based on slider pos
+    r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
+    
+    
+    }
   drawSlider();
     //go through each rain object
     for(int i=0; i< r.length; i++){
@@ -260,6 +297,8 @@ void rainDisplay(){
         for(int i=0; i< r.length; i++){
   r[i].force();
   r[i].show();
+  //reset the stroke to black after making the rain color
+  stroke(0);
         }
   }
   void rainSound(){
