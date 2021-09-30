@@ -64,8 +64,8 @@ void draw(){
   
   drawSlider();
   windSliderValue = (slider.posx-width/10)* 5.39375;
-  
-  
+ 
+   
     //go through each rain object
   for(int i=0; i< r.length; i++){
     
@@ -81,6 +81,7 @@ void draw(){
   buildings();
   road();
   rainDisplay();
+ 
 }
 
 
