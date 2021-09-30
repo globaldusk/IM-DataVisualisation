@@ -10,13 +10,9 @@ import processing.sound.*;
 SoundFile raindroplet;
 int index = 0;
 
-Rain[] r = new Rain[20];
-
-Slider slider = new Slider();
-float sliderValue;
-
 //import processing.sound.*;
 int delayer = 0;
+int delayer2 = 0;
 int setter = 0;
 int limit = 0;
 int number = 4;
@@ -26,7 +22,6 @@ int[] sunxs = new int[rotation];
 int[] sunys = new int[rotation];
 int[] moonxs = new int[rotation];
 int[] moonys = new int[rotation];
-int index;
 
 //SoundFile raindroplet;
 //int index = 0;
@@ -84,7 +79,7 @@ void draw(){
   fill(255);
   //ellipse(width/2, height/2, 800, 500);
   strokeWeight(5);
-  
+  water();
   drawSlider();
     //go through each rain object
     for(int i=0; i< r.length; i++){
@@ -106,7 +101,7 @@ void draw(){
       //print (xs[i]);
       //print (ys[i]+"       ");
     }
-    print(darkness+"       ");
+    //print(darkness+"       ");
     
     sun = new Planet(color(249, 215, 28),sunxs[index],sunys[index],sample,1);
     moon = new Planet(color(244, 246, 240),moonxs[index],moonys[index],25,1);
@@ -120,12 +115,18 @@ void draw(){
   tint(255, (21-sample)*12.75);
   }
   
-  water();
+  
   environment();
-  //buildings();
+  buildings();
   road();
   rainDisplay();
-  river();
+  if (delayer2 == 20){
+    river();
+    delayer2 = 0;
+  }
+  else{
+    delayer2++;
+  }
 
   if (limit < rotation){
     fill(0);
@@ -182,7 +183,7 @@ void planetAxis(){
               sunys[setter] = int(sunY);
               moonxs[setter] = int(moonX);
               moonys[setter] = int(moonY);
-              print(int(sunX)+"        ");
+              //print(int(sunX)+"        ");
               setter++;
               append(sunys, int(sunY));
               append(moonys, int(moonY));
@@ -195,56 +196,6 @@ void planetAxis(){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-void drawSlider() {
-    slider.fundo = slider.posx;
-    //buffer to variably change width of slide bar
-    float leftBuffer = width/10;
-    float rightBuffer = width-(width/10);
-    
-    //draw the slider line
-    line (rightBuffer, slider.posy, leftBuffer, slider.posy);
-    if (dist(mouseX, mouseY, slider.posx, slider.posy) < slider.slider_height) {
-      fill(200);
-      slider.over = true;
-    }
-    else {
-      fill(255);
-      slider.over = false;
-    }
-  
-  //make sure slider cant leave the bar length on left side
-  if (slider.posx < leftBuffer) {
-  slider.posx = leftBuffer;
-  }
-  //make sure slider cant leave the bar length on right side
-  if (slider.posx > rightBuffer) {
-  slider.posx = rightBuffer;
-  }
-  
-    //draw the slider box
-    rect(slider.posx, slider.posy, slider.slider_width, slider.slider_height);
-  }
-
-
-void mousePressed() {
-  //check if slider has been clicked
-  if (slider.over) {
-    slider.locked = true;
-    slider.xoff = mouseX-slider.posx;
-  }
-}
 
 void drawSlider() {
     slider.fundo = slider.posx;
@@ -305,7 +256,7 @@ void rainDisplay(){
         }
   }
   void rainSound(){
-    raindroplet.play();
+    //raindroplet.play();
   
   }
   //    public int getData(){
