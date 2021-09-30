@@ -70,8 +70,8 @@ void draw(){
     //go through each rain object
   for(int i=0; i< r.length; i++){
     
-      //changes rain speed based on slider pos
-    r[i].xSpeed = (int)(rainArray[(int)windSliderValue]);
+    //changes rain speed based on slider pos
+    //r[i].xSpeed = (int)(rainArray[(int)windSliderValue]);
     
     
     }
