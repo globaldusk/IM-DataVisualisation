@@ -11,7 +11,7 @@ float windSliderValue;
 float sunSliderValue;
 
 Table rainTable;
-float[] rainArray;
+float[] rainDataArray;
 
 Planet sun;
 Planet moon;
@@ -34,7 +34,7 @@ void setup(){
   slider.setupSlider();
   rainTable = loadTable("raindata.csv", "header");
   
-  rainArray = rainTableInterpretation(rainTable);
+  rainDataArray = rainTableInterpretation(rainTable);
   
   
   
@@ -66,12 +66,11 @@ void draw(){
   windSliderValue = (slider.posx-width/10)* 5.39375;
   
   
-  println(windSliderValue);
     //go through each rain object
   for(int i=0; i< r.length; i++){
     
     //changes rain speed based on slider pos
-    //r[i].xSpeed = (int)(rainArray[(int)windSliderValue]);
+    r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
     
     
     }
