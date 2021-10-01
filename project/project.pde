@@ -52,11 +52,17 @@ Table rainTable;
 float[] rainDataArray;
 
 PImage img;
+//car
+Roadlines two;
+PImage carImage;
 
 void setup(){
   size(600,600);
   img = loadImage("cloud.png");
   sunlight = loadTable("SolarVoltage.csv", "csv");
+
+  carImage = loadImage("car.png");
+  two = new Roadlines();
 
   ac = AudioContext.getDefaultContext();
   tonePlayer1();
@@ -149,15 +155,19 @@ void draw(){
   drawSlider();
 
   if(sunys[index] <250){
+    push();
     image(img, 0, -50);
   img.resize(600, 200);
   tint(255, (21-sample)*12.75);
+  pop();
   }
   
   
   environment();
   buildings();
   road();
+  caller();
+  car();
   
   if (delayer2 == 50){
     river();
@@ -319,13 +329,13 @@ void rainDisplay(){
     //line(0,height/2 +100,width,height/2+100);
     push();
     rectMode(CORNERS);
-    fill(255);
+    fill(196,196,196);
     rect(-10,height/2 +50,width+10,height/2+100);
     float w = 45;
     float h = 380;
     strokeWeight(10);
     fill(0);
-    quad(270,370,330,370,250,380,350,380);
+    
     
     //float y= 370;
     //for(float i = 0; i < width; i = i + w*2){
@@ -559,4 +569,44 @@ void tonePlayer1(){
    );
    ac.out.addDependent(clock);
    ac.start();
+}
+
+void caller(){
+   two.move();
+   two.rline();
+    
+  
+  }
+  
+  void car(){
+    
+    image(carImage,275, 335);
+  }
+  
+  class Roadlines{
+  float x = 0;
+  float y = 375;
+  float xMove = 13;
+  float y2 = 20;
+  
+  
+  void move(){
+    x= x+xMove;
+    if (x > width){
+      x = 0;
+    }
+   }
+  
+  void rline(){
+    push();
+  fill(0);
+  stroke(0,0,0);
+  strokeWeight(3);
+  rectMode(CORNERS);
+  rect(x,y,x+20,y+5);
+  
+  pop();
+  }
+
+
 }
