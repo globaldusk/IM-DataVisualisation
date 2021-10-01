@@ -371,7 +371,7 @@ void rainDisplay(){
   void buildings(){
     push();
     rectMode(CORNERS);
-    fill(255);
+    fill(178);
     
     rect(0,150,50,height/2+50);
     rect(50,200,100,height/2+50);
@@ -391,7 +391,7 @@ void rainDisplay(){
     rect(535,75,width,height/2+50);
 
 
-    fill(56);
+    fill(255);
     rect(0,175,35,height/2+50);
     rect(40,200,55,height/2+50); 
     rect(55,160,75,height/2+50);
@@ -425,7 +425,7 @@ void rainDisplay(){
    //shadow triangles and snow triangles
   
   
-  fill(35);
+  fill(98);
   triangle(-250,300,50,100,280,300);
   push();
   noStroke();
@@ -482,7 +482,7 @@ void rainDisplay(){
     push();
     rectMode(CORNERS);
 
-    fill(44,83,232);
+    fill(198,231,255);
     rect(-10,400,610,610);
     
     pop();
@@ -499,7 +499,7 @@ void rainDisplay(){
        for( float i = x; i<=height; i = i + w*2 ){ //draws a line of rect, changes x position
         noStroke();    //takes away stroke
           y = random(400,600);//sets y height randomly within 150-250 when mouse clicked
-          fill(random(100,200), random(50,150), random(200,300));//sets random shade of purple when mouse clicked
+          fill(random(227,245), random(227,245), random(227,245));//sets random shade of purple when mouse clicked
         
        rect( i,y, w,h );//draws rect  
       }
@@ -580,7 +580,7 @@ void caller(){
   
   void car(){
     
-    image(carImage,275, 335);
+    image(carImage,275, 340);
   }
   
   class Roadlines{
