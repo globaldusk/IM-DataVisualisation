@@ -75,6 +75,7 @@ void setup(){
   rainTable = loadTable("raindata.csv", "header");
   
   rainDataArray = rainTableInterpretation(rainTable);
+  
 }
 
 float[] rainTableInterpretation(Table table){
@@ -89,6 +90,15 @@ float[] rainTableInterpretation(Table table){
     
   return rainValueArr;
 
+}
+
+
+void collisionDetector(int xPos, int yPos, int sunSlider){
+  
+  if(xPos == sunxs[sunSlider] && yPos == sunys[sunSlider]){
+
+    
+  }
 }
 
 int darkness;
@@ -123,11 +133,7 @@ void draw(){
   }
   else{
     index = int(sunSlider);
-    for(int i = 0; i < sunxs.length; i++){
-      //print (xs[i]);
-      //print (ys[i]+"       ");
-    }
-    //print(darkness+"       ");
+    
     
     sun = new Planet(color(249, 215, 28),sunxs[index],sunys[index],sample,1);
     moon = new Planet(color(244, 246, 240),moonxs[index],moonys[index],25,1);
@@ -177,6 +183,11 @@ void draw(){
   else{
     rainDisplay();
   }
+  
+  
+  
+  collisionDetector(mouseX, mouseY, (int)sunSlider);
+  
 }
 class Planet{
   color c;
@@ -184,6 +195,7 @@ class Planet{
   float y;
   float size;
   float speed;
+  
   
   Planet(color tempC, float tempX, float tempY, float tempSize, float tempSpeed){
     c = tempC;
