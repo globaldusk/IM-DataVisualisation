@@ -52,6 +52,7 @@ Table rainTable;
 float[] rainDataArray;
 
 PImage img;
+boolean startLoading = true;
 
 void setup(){
   size(600,600);
@@ -59,7 +60,7 @@ void setup(){
   sunlight = loadTable("SolarVoltage.csv", "csv");
 
   ac = AudioContext.getDefaultContext();
-  tonePlayer1();
+  //tonePlayer1();
   
   //table1 = loadTable("raindata.csv", "header");
   raindroplet = new SoundFile(this, "droplet2.mp3");
@@ -95,10 +96,38 @@ float[] rainTableInterpretation(Table table){
 
 void collisionDetector(int xPos, int yPos, int sunSlider){
   
-  if(xPos == sunxs[sunSlider] && yPos == sunys[sunSlider]){
-
+  /*if(xPos >= sunxs[sunSlider]-(sun.size/2)){
+    System.out.println("Greater");
+  }*/
+  //when game starts
+  
+  if(startLoading || sun == null){
+      return;
+      
+  }
+  //check sun
+  if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (xPos < width/2)){
+    
+    textSize(30);
+    text("Sun",mouseX, mouseY);
+   
+  }
+  
+  //check moon
+  
+  if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
+      textSize(30);
+      text("Moon", mouseX, mouseY);
     
   }
+  color c = get(mouseX, mouseY);
+  println(c);
+  if(c == -13872152){
+    textSize(30);
+    text("River",mouseX, mouseY);
+  
+  }
+  //car = -16777216
 }
 
 int darkness;
@@ -181,6 +210,7 @@ void draw(){
     text("Loading...",width/8, height/2);
   }
   else{
+    startLoading = false;
     rainDisplay();
   }
   
