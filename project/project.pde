@@ -115,7 +115,6 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
       
   }
   color c = get(mouseX, mouseY);
-  println(c);
   //check sun
   if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (yPos < width/2)){
     
