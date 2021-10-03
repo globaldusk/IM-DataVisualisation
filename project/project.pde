@@ -121,7 +121,7 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
       text("Moon", mouseX + 30, mouseY);
     
   }
-  color c = get(mouseX + 30, mouseY);
+  color c = get(mouseX, mouseY);
   println(c);
   if(c == -13872152){
     textSize(30);
