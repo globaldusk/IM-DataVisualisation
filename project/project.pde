@@ -56,6 +56,7 @@ PImage img;
 //car
 Roadlines two;
 PImage carImage;
+boolean startLoading = true;
 
 void setup(){
   size(600,600);
@@ -83,6 +84,7 @@ void setup(){
   rainTable = loadTable("raindata.csv", "header");
   
   rainDataArray = rainTableInterpretation(rainTable);
+  
 }
 
 float[] rainTableInterpretation(Table table){
@@ -97,6 +99,48 @@ float[] rainTableInterpretation(Table table){
     
   return rainValueArr;
 
+}
+
+
+void collisionDetector(int xPos, int yPos, int sunSlider){
+  
+  /*if(xPos >= sunxs[sunSlider]-(sun.size/2)){
+    System.out.println("Greater");
+  }*/
+  //when game starts
+  
+  if(startLoading || sun == null){
+      return;
+      
+  }
+  //check sun
+  if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (yPos < width/2)){
+    
+    textSize(30);
+    text("Sun",mouseX + 30, mouseY);
+   
+  }
+  
+  //check moon
+  
+  if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
+      textSize(30);
+      fill(255, 255, 255);
+      text("Moon", mouseX + 30, mouseY);
+    
+  }
+  color c = get(mouseX, mouseY);
+  println(c);
+  if(c == -13872152){
+    textSize(30);
+    fill(255, 255, 255);
+    text("River",mouseX + 30, mouseY);
+    fill(0);
+  
+  }
+  
+  
+  //car = -16777216
 }
 
 int darkness;
@@ -116,11 +160,7 @@ void draw(){
 
   drawSlider();
     //go through each rain object
-    for(int i=0; i< r.length; i++){
-     
-     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
-    }
   sliderValue = (slider.posx - (width/2))/(width/5);
   sunSlider = (slider.posx-60)*1.19791667;
   
@@ -131,11 +171,7 @@ void draw(){
   }
   else{
     index = int(sunSlider);
-    for(int i = 0; i < sunxs.length; i++){
-      //print (xs[i]);
-      //print (ys[i]+"       ");
-    }
-    //print(darkness+"       ");
+    
     
     sun = new Planet(color(249, 215, 28),sunxs[index],sunys[index],sample,1);
     moon = new Planet(color(244, 246, 240),moonxs[index],moonys[index],25,1);
@@ -150,6 +186,9 @@ void draw(){
   for(int i=0; i< r.length; i++){
     
     //changes rain speed based on slider pos
+    if((int)rainDataArray[(int)windSliderValue] == 0){
+      continue;
+    }
     r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
     
     
@@ -191,8 +230,14 @@ void draw(){
       tonePlayer();
       flip = true;
     }
+    startLoading = false;
     rainDisplay();
   }
+  
+  
+  
+  collisionDetector(mouseX, mouseY, (int)sunSlider);
+  
 }
 class Planet{
   color c;
@@ -200,6 +245,7 @@ class Planet{
   float y;
   float size;
   float speed;
+  
   
   Planet(color tempC, float tempX, float tempY, float tempSize, float tempSpeed){
     c = tempC;
