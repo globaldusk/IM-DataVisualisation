@@ -359,7 +359,7 @@ void drawSlider() {
       slider.over = true;
     }
     else {
-      fill(255);
+      fill(254);
       slider.over = false;
     }
   
@@ -618,7 +618,7 @@ void tonePlayer(){
             //choose some nice frequencies
             if(random(1) < 0.5) return;
             pitch = Pitch.forceToScale((int)random(12), Pitch.dorian);
-            float freq = Pitch.mtof(pitch + (int)random(5) * 10 + darkness/10);
+            float freq = Pitch.mtof(pitch + (int)random(5) * 10 + darkness/10+50);
             WavePlayer wp = new WavePlayer(freq, Buffer.SINE);
             Gain g = new Gain(1, new Envelope(0));
             g.addInput(wp);
