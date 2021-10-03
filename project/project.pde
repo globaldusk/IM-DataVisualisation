@@ -109,7 +109,7 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (xPos < width/2)){
     
     textSize(30);
-    text("Sun",mouseX, mouseY);
+    text("Sun",mouseX + 30, mouseY);
    
   }
   
@@ -117,14 +117,14 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   
   if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
       textSize(30);
-      text("Moon", mouseX, mouseY);
+      text("Moon", mouseX + 30, mouseY);
     
   }
-  color c = get(mouseX, mouseY);
+  color c = get(mouseX + 30, mouseY);
   println(c);
   if(c == -13872152){
     textSize(30);
-    text("River",mouseX, mouseY);
+    text("River",mouseX + 30, mouseY);
   
   }
   //car = -16777216
