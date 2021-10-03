@@ -63,6 +63,7 @@ void setup(){
   sunlight = loadTable("SolarVoltage.csv", "csv");
 
   carImage = loadImage("car.png");
+
   two = new Roadlines();
 
   ac = AudioContext.getDefaultContext();
@@ -154,21 +155,21 @@ void draw(){
     
     }
   drawSlider();
-
+  
   if(sunys[index] <250){
     push();
+    tint(255, (21-sample)*12.75);
     image(img, 0, -50);
-  img.resize(600, 200);
-  tint(255, (21-sample)*12.75);
-  pop();
+    img.resize(600, 200);
+    pop();
   }
-  
   
   environment();
   buildings();
   road();
   caller();
-  car();
+  noTint();
+  image(carImage, 275, 340);
   
   if (delayer2 == 50){
     river();
@@ -553,11 +554,6 @@ void caller(){
   
   }
   
-  void car(){
-    
-    image(carImage,275, 340);
-  }
-  
   class Roadlines{
   float x = 0;
   float y = 375;
@@ -584,4 +580,4 @@ void caller(){
   }
 
 
-}
+ }
