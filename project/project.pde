@@ -127,6 +127,7 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
     text("River",mouseX + 30, mouseY);
   
   }
+  
   //car = -16777216
 }
 
@@ -147,11 +148,7 @@ void draw(){
 
   drawSlider();
     //go through each rain object
-    for(int i=0; i< r.length; i++){
-     
-     r[i].xSpeed = (slider.posx - (width/2))/(width/5);
     
-    }
   sliderValue = (slider.posx - (width/2))/(width/5);
   sunSlider = (slider.posx-60)*1.19791667;
   
@@ -177,6 +174,9 @@ void draw(){
   for(int i=0; i< r.length; i++){
     
     //changes rain speed based on slider pos
+    if((int)rainDataArray[(int)windSliderValue] == 0){
+      continue;
+    }
     r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
     
     
