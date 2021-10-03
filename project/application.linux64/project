@@ -1,0 +1,5 @@
+#!/bin/sh
+
+APPDIR=$(readlink -f "$0")
+APPDIR=$(dirname "$APPDIR")
+java -Djna.nosys=true -Djava.library.path="$APPDIR:$APPDIR/lib" -cp "$APPDIR:$APPDIR/lib/project.jar:$APPDIR/lib/core.jar:$APPDIR/lib/jogl-all.jar:$APPDIR/lib/gluegen-rt.jar:$APPDIR/lib/jogl-all-natives-linux-amd64.jar:$APPDIR/lib/gluegen-rt-natives-linux-amd64.jar:$APPDIR/lib/audioservers-api-2.0.0.jar:$APPDIR/lib/audioservers-jack-2.0.0.jar:$APPDIR/lib/audioservers-javasound-2.0.0.jar:$APPDIR/lib/beads.jar:$APPDIR/lib/jlayer-1.0.1.4.jar:$APPDIR/lib/jlayer-1.0.1.jar:$APPDIR/lib/jna-5.6.0.jar:$APPDIR/lib/jnajack-1.4.0.jar:$APPDIR/lib/junit-3.8.2.jar:$APPDIR/lib/mp3spi-1.9.5.4.jar:$APPDIR/lib/tritonus-aos-1.0.0.jar:$APPDIR/lib/tritonus-share-0.3.7.4.jar:$APPDIR/lib/tritonus-share-1.0.0.jar:$APPDIR/lib/javamp3-1.0.4.jar:$APPDIR/lib/jsyn-20171016.jar:$APPDIR/lib/sound.jar" project "$@"
