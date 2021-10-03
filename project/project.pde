@@ -109,10 +109,13 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   }*/
   //when game starts
   
+ 
   if(startLoading || sun == null){
       return;
       
   }
+  color c = get(mouseX, mouseY);
+  println(c);
   //check sun
   if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (yPos < width/2)){
     
@@ -123,24 +126,62 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   
   //check moon
   
-  if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
+  else if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
       textSize(30);
       fill(255, 255, 255);
       text("Moon", mouseX + 30, mouseY);
     
   }
-  color c = get(mouseX, mouseY);
-  println(c);
-  if(c == -13872152){
+  
+  
+  //river
+  else if(c == -3741697){
     textSize(30);
-    fill(255, 255, 255);
-    text("River",mouseX + 30, mouseY);
+    fill(0, 40, 255);
+   
+    text("River", mouseX + 30, mouseY);
     fill(0);
   
   }
+  //car check
+  else if(xPos < 323 && xPos > 276 && yPos < 376 && yPos > 347){
+    textSize(30);
+    fill(255, 0, 0);
+    text("Car", mouseX + 30, mouseY);
+  }
+  else if(yPos < 392 && yPos > 350){
+    textSize(30);
+    fill(0, 255, 0);
+    text("Road", mouseX + 30, mouseY);
+  }
   
   
-  //car = -16777216
+  
+  else if(c == -5066062 || c == - 65794){
+    textSize(30);
+    fill(0, 0, 255);
+    text("Building", mouseX + 30, mouseY);
+  }
+  
+  else if(c == -1 || c == -10329502){
+    textSize(30);
+    fill(255, 255, 0);
+    text("Mountain", mouseX + 30, mouseY);
+  }
+  else if(c == -2697513){
+    textSize(30);
+    fill(1);
+    text("Cloud", mouseX + 30, mouseY);
+  }
+  else if(yPos < 100){
+    textSize(30);
+    fill(255);
+    text("Sky", mouseX + 30, mouseY);
+  }
+  
+  
+  
+  
 }
 
 int darkness;
@@ -187,9 +228,13 @@ void draw(){
     
     //changes rain speed based on slider pos
     if((int)rainDataArray[(int)windSliderValue] == 0){
+      r[i].xSpeed = 0;
       continue;
     }
-    r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
+    else{
+      r[i].xSpeed = (int)(rainDataArray[(int)windSliderValue]);
+    }
+    
     
     
     }
@@ -443,7 +488,7 @@ void rainDisplay(){
     rect(535,75,width,height/2+50);
 
 
-    fill(255);
+    fill(254, 254, 254);
     rect(0,175,35,height/2+50);
     rect(40,200,55,height/2+50); 
     rect(55,160,75,height/2+50);
