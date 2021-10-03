@@ -106,7 +106,7 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
       
   }
   //check sun
-  if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (xPos < width/2)){
+  if((xPos <= sunxs[sunSlider]+(sun.size/2)  && xPos >= sunxs[sunSlider]-(sun.size/2)   ) && (   yPos >= sunys[sunSlider]-(sun.size/2) && yPos <= sunys[sunSlider]+(sun.size/2)  ) && (yPos < width/2)){
     
     textSize(30);
     text("Sun",mouseX + 30, mouseY);
@@ -117,6 +117,7 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   
   if((xPos <= moonxs[sunSlider]+(moon.size/2)  && xPos >= moonxs[sunSlider]-(moon.size/2)   ) && (   yPos >= moonys[sunSlider]-(moon.size/2) && yPos <= moonys[sunSlider]+(moon.size/2)  ) && (yPos < height/2)){
       textSize(30);
+      fill(255, 255, 255);
       text("Moon", mouseX + 30, mouseY);
     
   }
@@ -124,9 +125,12 @@ void collisionDetector(int xPos, int yPos, int sunSlider){
   println(c);
   if(c == -13872152){
     textSize(30);
+    fill(255, 255, 255);
     text("River",mouseX + 30, mouseY);
+    fill(0);
   
   }
+  
   
   //car = -16777216
 }
